@@ -16,7 +16,8 @@ public class LinearBF {
         int u;
         int[] v;
         int[] w;
-        public Edge(int u, int[] v, int[] w){
+
+        public Edge(int u, int[] v, int[] w) {
             this.u = u;
             this.v = v;
             this.w = w;
@@ -49,11 +50,11 @@ public class LinearBF {
         for (int r = 0; r < RUNS; r++) {
             dispersion += pow(time[r] - mean, 2);
         }
-        dispersion = dispersion/(double) RUNS;
+        dispersion = dispersion / (double) RUNS;
         System.out.println("Dispersion time: " + dispersion);
-        double s = sqrt((RUNS*dispersion)/(RUNS-1));
-        double radius = 2.26*s/sqrt(RUNS);
-        System.out.println("Interval time: [" + (mean-radius) + "; " + (mean+radius) + "]");
+        double s = sqrt((RUNS * dispersion) / (RUNS - 1));
+        double radius = 2.26 * s / sqrt(RUNS);
+        System.out.println("Interval time: [" + (mean - radius) + "; " + (mean + radius) + "]");
     }
 
     public static void bellmanFord(int src) {
@@ -71,25 +72,24 @@ public class LinearBF {
             }
         }
 
-        for (int i = 0; i < NODE_SIZE; i++) {
-            for (int u = 0; u < edges.length; u++) {
-                for (int v = 0; v < edges[u].v.length; v++) {
-                    if (weights[edges[u].u] + edges[u].w[v] < weights[edges[u].v[v]]) {
-                        // System.out.println("Graph contains negative cycle");
-                        return;
-                    }
+
+        for (int u = 0; u < edges.length; u++) {
+            for (int v = 0; v < edges[u].v.length; v++) {
+                if (weights[edges[u].u] + edges[u].w[v] < weights[edges[u].v[v]]) {
+                    // System.out.println("Graph contains negative cycle");
+                    return;
                 }
             }
         }
     }
 
-    public static int[][] graphGeneration(){
+    public static int[][] graphGeneration() {
         Random rand = new Random();
         int[][] graph = new int[NODE_SIZE][NODE_SIZE];
 
-        for (int i = 0; i < NODE_SIZE; i++){
-            for (int j = 0; j < NODE_SIZE; j++){
-                if (i!=j) graph[i][j] = rand.nextInt(0,10001);
+        for (int i = 0; i < NODE_SIZE; i++) {
+            for (int j = 0; j < NODE_SIZE; j++) {
+                if (i != j) graph[i][j] = rand.nextInt(0, 10001);
             }
         }
         return graph;
